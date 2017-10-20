@@ -7,7 +7,6 @@ function click(e){
 
 document.addEventListener('DOMContentLoaded',function() {
 	var divs = document.querySelectorAll('div');
-
 	document.getElementById("click1").addEventListener("click", myFunction);
 });
 
@@ -17,12 +16,19 @@ function myFunction() {
 	    alert("Whoa");
 	}
 
-function onClick() {
-	    document.getElementById("demo")
-	//window.location.href = "http://stackoverflow.com";
+ chrome.tabs.query({active: true, currentWindow: true}, function(arrayOfTabs) {
+     var activeTab = arrayOfTabs[0];	//Only one active tab in existence
+     var activeTabId = activeTab.id; 
+     document.getElementById("demo").innerHTML = activeTab.url;
 
-	    alert("Whoa");
-	}
+
+  });
+
+ chrome.tabs.getCurrent(function(tab){
+ 	document.getElementById("demo").innerHTML = tab.url;
+        console.log(tab.url);
+    }
+);
 
 var images = {
 	doggo: 'https://i.ytimg.com/vi/vjzpLahk1ns/maxresdefault.jpg',
