@@ -7,10 +7,22 @@ function click(e){
 
 document.addEventListener('DOMContentLoaded',function() {
 	var divs = document.querySelectorAll('div');
-	for (var i = 0; i < divs.length; i++){
-		divs[i].addEventListener('click', click);
-	}
+
+	document.getElementById("click1").addEventListener("click", myFunction);
 });
+
+
+function myFunction() {
+	    document.getElementById("demo").innerHTML = "Hello World";
+	    alert("Whoa");
+	}
+
+function onClick() {
+	    document.getElementById("demo")
+	//window.location.href = "http://stackoverflow.com";
+
+	    alert("Whoa");
+	}
 
 var images = {
 	doggo: 'https://i.ytimg.com/vi/vjzpLahk1ns/maxresdefault.jpg',
