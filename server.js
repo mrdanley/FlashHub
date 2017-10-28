@@ -1,4 +1,5 @@
-var analytics = "",
+//analytics array
+var analytics = [],
     http = require('http'),
     fs = require('fs'),
     url = require('url'),
@@ -19,6 +20,7 @@ var analytics = "",
        });
 
        request.on('end', function () {
+          console.log('requestData: ', requestData);
            useNLU(requestData);
        });
     }else if(path=="/getstring"){
@@ -49,7 +51,6 @@ function useNLU(searchString){
   var json = rss2json(searchString);
   console.log('json: ',json);
   //get sentiment and emotions for first 10 articles
-  var analytics = [];
   for(var i=0;i<1;i++){
     var parameters = {
       'url': json["items"][i]["url"],
