@@ -10,6 +10,8 @@ function runSearch(){
 	var xmlhttp = new XMLHttpRequest();
 	post(xmlhttp,search);
 	setTimeout(function() { get(xmlhttp); },14000);
+        graphLoad();
+       
 }
 
 function post(xmlhttp,search) {
@@ -54,3 +56,29 @@ function get(xmlhttp) {
     xmlhttp.send();
   });
 }
+
+
+ function graphLoad() {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Analazing results from Watson"
+      },
+      data: [
+      {
+       type: "doughnut",
+       dataPoints: [
+       {  y: 2, indexLabel: "Android" },
+       {  y: 35.0, indexLabel: "Apple iOS" },
+       {  y: 7, indexLabel: "Blackberry" },
+       {  y: 2, indexLabel: "Windows Phone" },
+       {  y: 5, indexLabel: "Others" }
+       ]
+     }
+     ]
+   });
+
+    chart.render();
+     document.getElementById("chartContainer").innerHTML=chart;
+       
+  }
