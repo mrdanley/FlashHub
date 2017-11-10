@@ -13,6 +13,28 @@
   		  }
   		</style>
     	<title>Getting Started Extension's Popup</title>
+          <style type = "text/css">
+            #search{
+                width: 200px;
+                padding: 7px;
+                border: 1px solid #607d8b;
+                
+            }
+            #submitButton{
+                padding: 8px;
+                background: #607d8b;
+                border: 1px solid #607d8b;
+                color: white;
+                margin-left: -5px;
+                cursor: pointer;
+                
+            }
+            
+            #sumbitBuuton:hover{
+                background: #333;
+                transition: all 0.40s;
+            }
+         </style>
     	<script src="app.js"></script>
       <script src="canvasjs.min.js"></script>
   	</head>
@@ -21,7 +43,8 @@
 
     <header class="w3-container" style="padding-top:22px">
       <h5>
-          Search Company: <input type="text" id="search" value="Enter here">
+          Search Company: <input type="text" name="q" placeholder="Search..."
+                   maxlength="20" id="search">
           <button id="submitButton">Submit</button>
       </h5>
     </header>
