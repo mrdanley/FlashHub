@@ -46,7 +46,7 @@ function useNLU(jsonItem){
           //console.log("error: "+err);
         }
         else{
-          analytics[apiIndex] = JSON.stringify(response,null,2)+"<br><br>";
+          analytics[apiIndex] = JSON.stringify(response,null,2);
           console.log(analytics[apiIndex]);
           apiIndex++;
         }

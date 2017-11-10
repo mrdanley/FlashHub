@@ -11,6 +11,7 @@ function runSearch(){
 	post(xmlhttp,search);
 	setTimeout(function() { get(xmlhttp); },14000);
 
+	//emotion variables
 	var sadness, joy, fear, disgust, anger;
 	//sample values
 	sadness = 20;
@@ -18,7 +19,6 @@ function runSearch(){
 	fear = 20;
 	disgust = 20;
 	anger = 20;
-
   graphLoad(sadness,joy,fear,disgust,anger);
 }
 
@@ -64,6 +64,8 @@ function get(xmlhttp) {
     xmlhttp.send();
   });
 }
+
+//create emotion graph
 function graphLoad(sadness,joy,disgust,fear,anger) {
 	 var chart = new CanvasJS.Chart("chartContainer",
 	 {
