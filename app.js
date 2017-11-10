@@ -10,7 +10,16 @@ function runSearch(){
 	var xmlhttp = new XMLHttpRequest();
 	post(xmlhttp,search);
 	setTimeout(function() { get(xmlhttp); },14000);
-  graphLoad();
+
+	var sadness, joy, fear, disgust, anger;
+	//sample values
+	sadness = 20;
+	joy = 20;
+	fear = 20;
+	disgust = 20;
+	anger = 20;
+
+  graphLoad(sadness,joy,fear,disgust,anger);
 }
 
 function post(xmlhttp,search) {
@@ -55,24 +64,24 @@ function get(xmlhttp) {
     xmlhttp.send();
   });
 }
-function graphLoad() {
+function graphLoad(sadness,joy,disgust,fear,anger) {
 	 var chart = new CanvasJS.Chart("chartContainer",
 	 {
 		 title:{
-			 text: "Analazing results from Watson"
+			 text: "Emotions"
 		 },
 		 data: [
-		 {
-			type: "doughnut",
-			dataPoints: [
-			{  y: 2, indexLabel: "Android" },
-			{  y: 35.0, indexLabel: "Apple iOS" },
-			{  y: 7, indexLabel: "Blackberry" },
-			{  y: 2, indexLabel: "Windows Phone" },
-			{  y: 5, indexLabel: "Others" }
+		 		{
+					type: "doughnut",
+					dataPoints: [
+						{  y: sadness, indexLabel: "Sadness" },
+						{  y: joy, indexLabel: "Joy" },
+						{  y: disgust, indexLabel: "Disgust" },
+						{  y: fear, indexLabel: "Fear" },
+						{  y: anger, indexLabel: "Anger" }
+					]
+				}
 			]
-		}
-		]
 	});
 
 	 chart.render();
