@@ -18,7 +18,7 @@
                 width: 200px;
                 padding: 7px;
                 border: 1px solid #607d8b;
-                
+
             }
             #submitButton{
                 padding: 8px;
@@ -27,9 +27,9 @@
                 color: white;
                 margin-left: -5px;
                 cursor: pointer;
-                
+
             }
-            
+
             #sumbitBuuton:hover{
                 background: #333;
                 transition: all 0.40s;
@@ -43,21 +43,16 @@
 
     <header class="w3-container" style="padding-top:22px">
       <h5>
-          Search Company: <input type="text" name="q" placeholder="Search..."
-                   maxlength="20" id="search">
+          Search Company:
+          <input type="text" name="q" placeholder="Search..." maxlength="20" id="search">
           <button id="submitButton">Submit</button>
       </h5>
     </header>
 
     <div class="w3-row-padding">
-      <div class="w3-quarter">
-        <p id="results">placeholder</p>
-      </div>
+      <div id="chartContainer" style="width: 100%;" class="w3-quarter">Graph Data Shown Here</div>
+      <div id="results" class="w3-quarter">Result Data Shown Here</div>
     </div>
-    <div id="chartContainer" style="height: 300px; width: 100%;" >
-      Generic chart shown here
-    </div>
-
 
   </body>
 </html>
