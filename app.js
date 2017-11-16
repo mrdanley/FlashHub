@@ -5,10 +5,18 @@ document.addEventListener('DOMContentLoaded',function() {
 });
 
 function runSearch(){
-	document.getElementById('results').innerHTML = "";
   var search = document.getElementById('search').value;
 	var xmlhttp = new XMLHttpRequest();
 	post(xmlhttp,search);
+
+	//data analytics timer countdown
+	var seconds_left = 14;
+	var interval = setInterval(function() {
+  	if (seconds_left > 0){
+        document.getElementById('results').innerHTML = "Analyzing search..."+(--seconds_left);
+    }
+	}, 1000);
+
 	setTimeout(function() { get(xmlhttp); },14000);
 
 	//emotion variables
@@ -47,7 +55,7 @@ function get(xmlhttp) {
       // This is called even on 404 etc
       // so check the status
       if (xmlhttp.readyState==4 && xmlhttp.status == 200) {
-				document.getElementById('results').innerHTML = xmlhttp.responseText;
+				document.getElementById("results").innerHTML = xmlhttp.responseText;
         resolve(xmlhttp.response);
       }
       else {
@@ -85,6 +93,6 @@ function graphLoad(sadness,joy,disgust,fear,anger) {
 				}
 			]
 	});
-
+	document.getElementById("chartContainer").style.height="300px";
 	 chart.render();
  }
