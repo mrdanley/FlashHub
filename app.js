@@ -5,29 +5,32 @@ document.addEventListener('DOMContentLoaded',function() {
 });
 
 function runSearch(){
+	document.getElementById('results').innerHTML = "";
   var search = document.getElementById('search').value;
 	var xmlhttp = new XMLHttpRequest();
 	post(xmlhttp,search);
-
-	//data analytics timer countdown
-	var seconds_left = 14;
-	var interval = setInterval(function() {
-  	if (seconds_left > 0){
-        document.getElementById('results').innerHTML = "Analyzing search..."+(--seconds_left);
-    }
-	}, 1000);
-
 	setTimeout(function() { get(xmlhttp); },14000);
 
 	//emotion variables
 	var sadness, joy, fear, disgust, anger;
+    
 	//sample values
 	sadness = 20;
 	joy = 20;
 	fear = 20;
 	disgust = 20;
 	anger = 20;
-  graphLoad(sadness,joy,fear,disgust,anger);
+        
+        graphLoad(sadness,joy,fear,disgust,anger);
+  
+        //sentiment variables
+	var positive, negative;
+    
+	//sample values
+	positive=30;
+        negative=20;
+        
+        graphBar(positive, negative );
 }
 
 function post(xmlhttp,search) {
@@ -55,7 +58,7 @@ function get(xmlhttp) {
       // This is called even on 404 etc
       // so check the status
       if (xmlhttp.readyState==4 && xmlhttp.status == 200) {
-				document.getElementById("results").innerHTML = xmlhttp.responseText;
+				document.getElementById('results').innerHTML = xmlhttp.responseText;
         resolve(xmlhttp.response);
       }
       else {
@@ -77,12 +80,23 @@ function get(xmlhttp) {
 function graphLoad(sadness,joy,disgust,fear,anger) {
 	 var chart = new CanvasJS.Chart("chartContainer",
 	 {
+                
+               
+                
+               exportEnabled: true,
+               animationEnabled: true,
+               theme:"theme2",
+               backgroundColor: "#f0f5f5",
 		 title:{
 			 text: "Emotions"
 		 },
+                 axisY:{
+                        labelFontSize: 30,
+                        labelFontColor: "blue"
+                          },
 		 data: [
 		 		{
-					type: "doughnut",
+					type: "column",
 					dataPoints: [
 						{  y: sadness, indexLabel: "Sadness" },
 						{  y: joy, indexLabel: "Joy" },
@@ -93,6 +107,33 @@ function graphLoad(sadness,joy,disgust,fear,anger) {
 				}
 			]
 	});
-	document.getElementById("chartContainer").style.height="300px";
+
 	 chart.render();
  }
+
+//create sentiment graph
+function graphBar(positive, negative) {
+	var chart2 = new CanvasJS.Chart("chartContainer2",
+    {
+        exportEnabled: true,
+        animationEnabled: true,
+        theme:"theme2",
+        backgroundColor: "#f0f5f5",
+        
+      title:{
+        text: "Sentiment"
+      },
+      data: [
+                 {
+                     type: "pie",
+                     dataPoints: [
+                     { y: 10, label: "positive"},
+                     { y: 201, label: "negative"},
+      
+                     ]
+      }
+      ]
+    });
+
+chart2.render();
+}

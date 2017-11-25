@@ -8,6 +8,22 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   	  <style type="text/css">
+              
+          
+             p.serif {
+                        font-family: TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-variant: normal;
+                        font-weight: 400;
+                        line-height: 19.99px;
+                        
+}
+                        
+              body  {
+                background-image: url("paper.png");
+                background-color: #cccccc;
+}
   		  .popupContainerDiv {
 	  		     width: 350px;
   		  }
@@ -18,7 +34,7 @@
                 width: 200px;
                 padding: 7px;
                 border: 1px solid #607d8b;
-
+                
             }
             #submitButton{
                 padding: 8px;
@@ -27,9 +43,9 @@
                 color: white;
                 margin-left: -5px;
                 cursor: pointer;
-
+                
             }
-
+            
             #sumbitBuuton:hover{
                 background: #333;
                 transition: all 0.40s;
@@ -40,19 +56,30 @@
   	</head>
 
   <body class="popupContainerDiv">
-
     <header class="w3-container" style="padding-top:22px">
       <h5>
-          Search Company:
-          <input type="text" name="q" placeholder="Search..." maxlength="20" id="search">
+          Search Company: <input type="text" name="q" placeholder="Search..."
+                   maxlength="20" id="search">
           <button id="submitButton">Submit</button>
       </h5>
     </header>
 
     <div class="w3-row-padding">
-      <div id="chartContainer" style="width: 100%;" class="w3-quarter">Graph Data Shown Here</div>
-      <div id="results" class="w3-quarter">Result Data Shown Here</div>
+      <div class="w3-quarter">
+        <p id="results">placeholder</p>
+      </div>
     </div>
-
+      
+      
+      
+        <div style="width: 2000px;">
+        
+         <div  id="chartContainer" style="height: 300px; width: 300px; float: left;" >
+         <p class="serif">Generic chart shown here.</p></div>
+        <div id="chartContainer2" style="height: 300px; width: 300px;"> </div>
+       
+    </div>
+       
+  
   </body>
 </html>
