@@ -5,15 +5,11 @@ document.addEventListener('DOMContentLoaded',function() {
 });
 
 function runSearch(){
-	document.getElementById('results').innerHTML = "";
-	//hide and reset sentiment graph
-	document.getElementById('sentimentGraph').style.display="none";
-	sentimentGraph(0,0,);
-	//hide and reset emotion graph
-	document.getElementById('emotionGraph').style.display="none";
-  emotionGraph(0,0,0,0,0);
-	//hide and reset newspaper image
-	document.getElementById('newspaperImage').style.display="none";
+	//disabling submit button
+	document.getElementById('submitButton').disabled = true;
+	document.getElementById('submitButton').innerHTML = "Wait";
+
+	resetExtensionResults();
 
   var search = document.getElementById('search').value;
 	var searchParts = search.split(' ');
@@ -39,7 +35,26 @@ function runSearch(){
      }
  	}, 1000);
 
-	setTimeout(function() { get(xmlhttp); },14000);
+	//countdown before taking results from server
+	//making button active again
+	setTimeout(function() {
+		get(xmlhttp);
+		document.getElementById('submitButton').disabled = false;
+		document.getElementById('submitButton').innerHTML = "Submit";
+	},14000);
+}
+
+function resetExtensionResults(){
+	//clearing results message
+	document.getElementById('results').innerHTML = "";
+	//hide and reset sentiment graph
+	document.getElementById('sentimentGraph').style.display="none";
+	sentimentGraph(0,0,);
+	//hide and reset emotion graph
+	document.getElementById('emotionGraph').style.display="none";
+  emotionGraph(0,0,0,0,0);
+	//hide and reset newspaper image
+	document.getElementById('newspaperImage').style.display="none";
 }
 
 function post(xmlhttp,search) {
