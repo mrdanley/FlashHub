@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded',function() {
 
 function runSearch(){
 	document.getElementById('results').innerHTML = "";
+	//hide and reset sentiment graph
+	document.getElementById('sentimentGraph').style.display="none";
+	sentimentGraph(0,0,);
+	//hide and reset emotion graph
+	document.getElementById('emotionGraph').style.display="none";
+  emotionGraph(0,0,0,0,0);
+	//hide and reset newspaper image
+	document.getElementById('newspaperImage').style.display="none";
+
   var search = document.getElementById('search').value;
 	var searchParts = search.split(' ');
 	if(searchParts.length>1){
@@ -107,9 +116,25 @@ function analyzeReturnData(json){
 	}
 
 	if(positiveSum>Math.abs(negativeSum)){
-		document.getElementById('results').innerHTML = "Overall Positive";
+		if(positiveSum-Math.abs(negativeSum) > 0.75){
+			document.getElementById('results').innerHTML = "Overall Extremely Positive";
+		}else if(positiveSum-Math.abs(negativeSum) > 0.5){
+			document.getElementById('results').innerHTML = "Overall Positive";
+		}else if(positiveSum-Math.abs(negativeSum) > 0.25){
+			document.getElementById('results').innerHTML = "Overall Slightly Positive";
+		}else{
+			document.getElementById('results').innerHTML = "Overall Neutrally Positive";
+		}
 	}else{
-		document.getElementById('results').innerHTML = "Overall Negative";
+		if(negativeSum/Math.abs(positiveSum) > 0.75){
+			document.getElementById('results').innerHTML = "Overall Extremely Negative";
+		}else if(negativeSum-Math.abs(positiveSum) > 0.5){
+			document.getElementById('results').innerHTML = "Overall Negative";
+		}else if(negativeSum-Math.abs(positiveSum) > 0.25){
+			document.getElementById('results').innerHTML = "Overall Slightly Negative";
+		}else{
+			document.getElementById('results').innerHTML = "Overall Neutrally Negative";
+		}
 	}
 
 	//sentiment variables
@@ -118,8 +143,7 @@ function analyzeReturnData(json){
 	positive=positiveSum/jsonLength;
 	negative=negativeSum/jsonLength;
 	//show sentiment graph
-	document.getElementById('sentimentGraph').style.height="300px";
-	document.getElementById('sentimentGraph').style.width="340px";
+	document.getElementById('sentimentGraph').style.display="block";
 	sentimentGraph(positive, negative);
 
 	//emotion variables
@@ -131,13 +155,11 @@ function analyzeReturnData(json){
 	disgust = disgustSum/jsonLength;
 	anger = angerSum/jsonLength;
 	//show emotion graph
-	document.getElementById('emotionGraph').style.height="300px";
-	document.getElementById('emotionGraph').style.width="340px";
+	document.getElementById('emotionGraph').style.display="block";
   emotionGraph(sadness,joy,fear,disgust,anger);
 
 	//show newspaper image
-	document.getElementById('newspaperImage').style.height="100%";
-	document.getElementById('newspaperImage').style.width="100%";
+	document.getElementById('newspaperImage').style.display="block";
 }
 
 //create emotion graph
@@ -152,9 +174,11 @@ function emotionGraph(sadness,joy,disgust,fear,anger) {
 		 	title:{
 				text: "Emotions"
 		 	},
+			axisX:{
+				labelFontSize: 0
+			},
       axisY:{
-      	labelFontSize: 30,
-        labelFontColor: "blue"
+				labelFontSize: 0
       },
 		 	data: [
 				{
@@ -184,13 +208,13 @@ function sentimentGraph(positive, negative) {
       title:{
         text: "Sentiment"
       },
-			showInLegend: true,
       data: [
       	{
         	type: "pie",
+					showInLegend: true,
           dataPoints: [
-          	{ y: positive, label: "positive"},
-            { y: negative, label: "negative"},
+          	{ y: positive, name: "Positive", color: "blue"},
+            { y: negative, name: "Negative", color: "red"}
           ]
       	}
       ]
