@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html>
   	<head>
       <meta charset="UTF-8">
@@ -8,50 +7,38 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   	  <style type="text/css">
-              
-          
-             p.serif {
-                        font-family: TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif;
-                        font-size: 20px;
-                        font-style: normal;
-                        font-variant: normal;
-                        font-weight: 400;
-                        line-height: 19.99px;
-                        
-}
-                        
-              body  {
-                background-image: url("paper.png");
-                background-color: #cccccc;
-
-}
+        p.serif {
+          font-family: TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif;
+          font-size: 20px;
+          font-style: normal;
+          font-variant: normal;
+          font-weight: 400;
+          line-height: 19.99px;
+        }
+        body  {
+          background-image: url("background.png");
+        }
   		  .popupContainerDiv {
 	  		     width: 350px;
   		  }
-  		</style>
-    	<title>Getting Started Extension's Popup</title>
-          <style type = "text/css">
-            #search{
-                width: 200px;
-                padding: 7px;
-                border: 1px solid #607d8b;
-                
-            }
-            #submitButton{
-                padding: 8px;
-                background: #607d8b;
-                border: 1px solid #607d8b;
-                color: white;
-                margin-left: -5px;
-                cursor: pointer;
-                
-            }
-            
-            #sumbitBuuton:hover{
-                background: #333;
-                transition: all 0.40s;
-            }
-         </style>
+        #search{
+            width: 200px;
+            padding: 7px;
+            border: 1px solid #607d8b;
+        }
+        #submitButton{
+            padding: 8px;
+            background: #607d8b;
+            border: 1px solid #607d8b;
+            color: white;
+            margin-left: -5px;
+            cursor: pointer;
+        }
+        #sumbitBuuton:hover{
+            background: #333;
+            transition: all 0.40s;
+        }
+      </style>
     	<script src="app.js"></script>
       <script src="canvasjs.min.js"></script>
   	</head>
@@ -67,30 +54,25 @@
 
     <div class="w3-row-padding">
       <div class="w3-quarter">
-        <p id="results">placeholder</p>
+        <p id="results">
+          This extension gives some insight
+          on the human aspect of stock-trading decisions.
+        </p>
       </div>
     </div>
-      
-      
-      
-        <div style="width: 2000px;">
-        
-         <div  id="chartContainer" style="height: 300px; width: 300px; float: left;" >
-         <p class="serif">Generic chart shown here.</p></div>
-        <div id="chartContainer2" style="height: 300px; width: 300px;"> </div>
-       
+    <div class="w3-row-padding">
+        <div id="sentimentGraph" style="height: 0px; width: 0px;"> </div>
+        <br \>
+        <div id="emotionGraph" style="height: 0px; width: 0px;" > </div>
     </div>
-      
+    <img id="newspaperImage" src="paper.png" alt="googleNews" usemap="googleNews" background-color:"transparent" style="height: 0px; width: 0px;"/>
+    <map name="googleNews" id="ImageMapsCom-image-maps-2017-11-25-185612">
+      <area  alt="" title="google news1" href="http://www.image-maps.com/" shape="rect" coords="66,173,142,306" style="outline:none;" target="_self"     />
+      <area  alt="" title="google news2" href="http://www.image-maps.com/" shape="rect" coords="150,175,224,238" style="outline:none;" target="_self"     />
+      <area  alt="" title="google news3" href="http://www.image-maps.com/" shape="rect" coords="153,246,227,309" style="outline:none;" target="_self"     />
+      <area  alt="" title="google news4" href="http://www.image-maps.com/" shape="rect" coords="235,201,302,302" style="outline:none;" target="_self"     />
+      <area shape="rect" coords="372,371,374,373" alt="Image Map" style="outline:none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_92349" />
+    </map>
 
-   <img src="paper.png" alt="googleNews" usemap="googleNews" />       
-     
-<map name="googleNews" id="ImageMapsCom-image-maps-2017-11-25-185612">
-<area  alt="" title="google news1" href="http://www.image-maps.com/" shape="rect" coords="66,173,142,306" style="outline:none;" target="_self"     />
-<area  alt="" title="google news2" href="http://www.image-maps.com/" shape="rect" coords="150,175,224,238" style="outline:none;" target="_self"     />
-<area  alt="" title="google news3" href="http://www.image-maps.com/" shape="rect" coords="153,246,227,309" style="outline:none;" target="_self"     />
-<area  alt="" title="google news4" href="http://www.image-maps.com/" shape="rect" coords="235,201,302,302" style="outline:none;" target="_self"     />
-<area shape="rect" coords="372,371,374,373" alt="Image Map" style="outline:none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_92349" />
-</map>
-  
   </body>
 </html>
