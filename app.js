@@ -19,35 +19,6 @@ function runSearch(){
  	}, 1000);
 
 	setTimeout(function() { get(xmlhttp); },14000);
-
-	//sentiment variables
-	var positive, negative;
-
-	//sample values
-	positive=30;
-	negative=20;
-	//show sentiment graph
-	document.getElementById('sentimentGraph').style.height="300px";
-	document.getElementById('sentimentGraph').style.width="300px";
-	sentimentGraph(positive, negative);
-
-	//emotion variables
-	var sadness, joy, fear, disgust, anger;
-
-	//sample values
-	sadness = 20;
-	joy = 20;
-	fear = 20;
-	disgust = 20;
-	anger = 20;
-	//show emotion graph
-	document.getElementById('emotionGraph').style.height="300px";
-	document.getElementById('emotionGraph').style.width="300px";
-  emotionGraph(sadness,joy,fear,disgust,anger);
-
-	//show newspaper image
-	document.getElementById('newspaperImage').style.height="100%";
-	document.getElementById('newspaperImage').style.width="100%";
 }
 
 function post(xmlhttp,search) {
@@ -75,10 +46,14 @@ function get(xmlhttp) {
       // This is called even on 404 etc
       // so check the status
       if (xmlhttp.readyState==4 && xmlhttp.status == 200) {
+				//convert responseText to json
 				var x = xmlhttp.responseText;
 				x = x.replace(/\"{/g,"{");
+				x = x.replace(/}\"/g,"}");
 				x = x.replace(/\\"/g,'"');
-				document.getElementById('results').innerHTML = x;
+				x = JSON.parse(x);
+				analyzeReturnData(x);
+
         resolve(xmlhttp.response);
       }
       else {
@@ -96,26 +71,81 @@ function get(xmlhttp) {
   });
 }
 
+function analyzeReturnData(json){
+	var positiveSum=0,
+			negativeSum=0,
+			sadnessSum=0,
+			joySum=0,
+			fearSum=0,
+			disgustSum=0,
+			angerSum=0,
+			jsonLength=Object.keys(json).length;
+	for(var i=0;i<jsonLength;i++){
+		if(json[i]["sentiment"]["document"]["label"] == "negative"){
+			negativeSum += json[i]["sentiment"]["document"]["score"];
+		}else{
+			positiveSum += json[i]["sentiment"]["document"]["score"];
+		}
+
+		sadnessSum += json[i]["emotion"]["document"]["emotion"]["sadness"];
+		joySum += json[i]["emotion"]["document"]["emotion"]["joy"];
+		fearSum += json[i]["emotion"]["document"]["emotion"]["fear"];
+		disgustSum += json[i]["emotion"]["document"]["emotion"]["disgust"];
+		angerSum += json[i]["emotion"]["document"]["emotion"]["anger"];
+	}
+
+	if(positiveSum>Math.abs(negativeSum)){
+		document.getElementById('results').innerHTML = "Overall Positive";
+	}else{
+		document.getElementById('results').innerHTML = "Overall Negative";
+	}
+
+	//sentiment variables
+	var positive, negative;
+	//sample values
+	positive=positiveSum/jsonLength;
+	negative=negativeSum/jsonLength;
+	//show sentiment graph
+	document.getElementById('sentimentGraph').style.height="300px";
+	document.getElementById('sentimentGraph').style.width="340px";
+	sentimentGraph(positive, negative);
+
+	//emotion variables
+	var sadness, joy, fear, disgust, anger;
+	//sample values
+	sadness = sadnessSum/jsonLength;
+	joy = joySum/jsonLength;
+	fear = fearSum/jsonLength;
+	disgust = disgustSum/jsonLength;
+	anger = angerSum/jsonLength;
+	//show emotion graph
+	document.getElementById('emotionGraph').style.height="300px";
+	document.getElementById('emotionGraph').style.width="340px";
+  emotionGraph(sadness,joy,fear,disgust,anger);
+
+	//show newspaper image
+	document.getElementById('newspaperImage').style.height="100%";
+	document.getElementById('newspaperImage').style.width="100%";
+}
+
 //create emotion graph
 function emotionGraph(sadness,joy,disgust,fear,anger) {
-	 var chart = new CanvasJS.Chart("emotionGraph",
-	 {
-
-
-
-               exportEnabled: true,
-               animationEnabled: true,
-               theme:"theme2",
-               backgroundColor: "#f0f5f5",
-		 title:{
-			 text: "Emotions"
-		 },
-                 axisY:{
-                        labelFontSize: 30,
-                        labelFontColor: "blue"
-                          },
-		 data: [
-		 		{
+	 var chart = new CanvasJS.Chart(
+		 "emotionGraph",
+	 	{
+    	exportEnabled: true,
+      animationEnabled: true,
+      theme:"theme2",
+      backgroundColor: "#f0f5f5",
+		 	title:{
+				text: "Emotions"
+		 	},
+      axisY:{
+      	labelFontSize: 30,
+        labelFontColor: "blue"
+      },
+		 	data: [
+				{
 					type: "column",
 					dataPoints: [
 						{  y: sadness, indexLabel: "Sadness" },
@@ -126,34 +156,33 @@ function emotionGraph(sadness,joy,disgust,fear,anger) {
 					]
 				}
 			]
-	});
-
-	 chart.render();
- }
+		}
+	);
+	chart.render();
+}
 
 //create sentiment graph
 function sentimentGraph(positive, negative) {
 	var chart2 = new CanvasJS.Chart("sentimentGraph",
     {
-        exportEnabled: true,
-        animationEnabled: true,
-        theme:"theme2",
-        backgroundColor: "#f0f5f5",
-
+			exportEnabled: true,
+      animationEnabled: true,
+      theme:"theme2",
+      backgroundColor: "#f0f5f5",
       title:{
         text: "Sentiment"
       },
+			showInLegend: true,
       data: [
-                 {
-                     type: "pie",
-                     dataPoints: [
-                     { y: 10, label: "positive"},
-                     { y: 201, label: "negative"},
-
-                     ]
-      }
+      	{
+        	type: "pie",
+          dataPoints: [
+          	{ y: positive, label: "positive"},
+            { y: negative, label: "negative"},
+          ]
+      	}
       ]
-    });
-
-chart2.render();
+    }
+	);
+	chart2.render();
 }
