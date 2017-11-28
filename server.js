@@ -43,7 +43,7 @@ function useNLU(jsonItem){
     };
       natural_language_understanding.analyze(parameters, function(err, response) {
         if (err){
-          //console.log("error: "+err);
+          console.log("error: "+err);
         }
         else{
           analytics[apiIndex] = JSON.stringify(response);

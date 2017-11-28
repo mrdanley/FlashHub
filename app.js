@@ -7,6 +7,18 @@ document.addEventListener('DOMContentLoaded',function() {
 function runSearch(){
 	document.getElementById('results').innerHTML = "";
   var search = document.getElementById('search').value;
+	var searchParts = search.split(' ');
+	if(searchParts.length>1){
+		var combinedSearch = "";
+		for(var i=0;i<searchParts.length;i++){
+			combinedSearch+=searchParts[i];
+			if(i<searchParts.length-1){
+				combinedSearch+='+';
+			}
+		}
+		search = combinedSearch;
+	}
+
 	var xmlhttp = new XMLHttpRequest();
 	post(xmlhttp,search);
 
