@@ -6,16 +6,10 @@
       <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
   	  <style type="text/css">
-        p.serif {
-          font-family: TimesNewRoman,Times New Roman,Times,Baskerville,Georgia,serif;
-          font-size: 20px;
-          font-style: normal;
-          font-variant: normal;
-          font-weight: 400;
-          line-height: 19.99px;
-        }
         body  {
+          font-family: 'Arial Black';
           background-image: url("background.png");
         }
   		  .popupContainerDiv {
@@ -46,8 +40,8 @@
   <body class="popupContainerDiv">
     <header class="w3-container" style="padding-top:22px">
       <h5>
-          Search Company: <input type="text" name="q" placeholder="Search..."
-                   maxlength="20" id="search">
+          Search Company:
+          <input type="text" placeholder="Search..." maxlength="20" id="search">
           <button id="submitButton">Submit</button>
       </h5>
     </header>
@@ -55,8 +49,8 @@
     <div class="w3-row-padding">
       <div class="w3-quarter">
         <p id="results">
-          This extension gives some insight
-          on the human aspect of stock-trading decisions.
+          This extension gives some insight on the human aspect of
+          stock-trading decisions using sentiment and emotion.
         </p>
       </div>
     </div>
@@ -65,14 +59,14 @@
         <br \>
         <div id="emotionGraph" style="height: 300px; width: 300px; display: none;" > </div>
     </div>
-    <img id="newspaperImage" style="display: none;" src="paper.png" alt="googleNews" usemap="googleNews" background-color:"transparent"/>
+    <img id="newspaperImage" style="display: none;" src="paper.png" alt="googleNews" usemap="#googleNews" background-color:"transparent"/>
+    <p class="w3-container" id="newspaperCaption"></p>
     <map name="googleNews" id="ImageMapsCom-image-maps-2017-11-25-185612">
-      <area  alt="" title="google news1" href="http://www.image-maps.com/" shape="rect" coords="66,173,142,306" style="outline:none;" target="_self"     />
-      <area  alt="" title="google news2" href="http://www.image-maps.com/" shape="rect" coords="150,175,224,238" style="outline:none;" target="_self"     />
-      <area  alt="" title="google news3" href="http://www.image-maps.com/" shape="rect" coords="153,246,227,309" style="outline:none;" target="_self"     />
-      <area  alt="" title="google news4" href="http://www.image-maps.com/" shape="rect" coords="235,201,302,302" style="outline:none;" target="_self"     />
-      <area shape="rect" coords="372,371,374,373" alt="Image Map" style="outline:none;" title="Image Map" href="http://www.image-maps.com/index.php?aff=mapped_users_92349" />
+      <area title="google news1" id="link1" href="" shape="rect" coords="44,149,117,275" style="outline:none;" target="_blank"/>
+      <area title="google news2" id="link2" href="" shape="rect" coords="128,149,202,210" style="outline:none;" target="_blank"/>
+      <area title="google news3" id="link3" href="" shape="rect" coords="129,220,203,274" style="outline:none;" target="_blank"/>
+      <area title="google news4" id="link4" href="" shape="rect" coords="214,175,286,275" style="outline:none;" target="_blank"/>
+      <area shape="rect" coords="372,371,374,373" alt="Image Map" style="outline:none;" title="Image Map" />
     </map>
-
   </body>
 </html>
