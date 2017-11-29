@@ -21,7 +21,6 @@ function rss2json(searchString){
 }
 //get sentiment and emotions for first 10 articles
 function useNLU(jsonItem){
-  var urlStartIndex;
   var parameters;
   NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
   natural_language_understanding = new NaturalLanguageUnderstandingV1({
@@ -29,28 +28,27 @@ function useNLU(jsonItem){
     'password': 'KlGVUtjP5Nb8',
     'version_date': '2017-02-27'
   });
-
-  for(var i=1, apiIndex = 0; i<jsonItem["items"].length; i++){
-    //making sure link is https secure
-    urlStartIndex = jsonItem["items"][i]["url"].lastIndexOf('url=')+1;
-
+  var apiIndex = 0;
+  var titleIndices = [];
+  for(var i=0, apiIndex = 0; i<jsonItem["items"].length; i++){
     parameters = {
       'url': jsonItem["items"][i]["url"],
       'features': {
+        'metadata': {},
         'emotion': {},
         'sentiment': {}
       }
     };
-      natural_language_understanding.analyze(parameters, function(err, response) {
-        if (err){
-          console.log("error: "+err);
-        }
-        else{
-          analytics[apiIndex] = JSON.stringify(response);
-          console.log(analytics[apiIndex]);
-          apiIndex++;
-        }
-      });
+    natural_language_understanding.analyze(parameters, function(err, response) {
+      if (err){
+        console.log("error: "+err);
+      }
+      else{
+        analytics[apiIndex] = JSON.stringify(response);
+        console.log(analytics[apiIndex]);
+        apiIndex++;
+      }
+    });
   }
 }
 
