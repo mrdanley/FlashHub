@@ -28,11 +28,20 @@ function runSearch(){
 	post(xmlhttp,search);
 
 	//data analytics timer countdown
-	var seconds_left = 14;
+	var seconds_left = 0;
+	var messages = [
+		"Request data sent...",
+		"Converting html to rss...",
+		"Converting rss to json...",
+		"Fetching news URLs...",
+		"Utilizing IBM Watson NLU API...",
+		"Analyzing data..."
+	];
 	var interval = setInterval(function() {
-  	if (seconds_left > 0){
-        document.getElementById('results').innerHTML = "Analyzing search..."+(--seconds_left);
-     }
+  	if (seconds_left < 6){
+    	document.getElementById('results').innerHTML += messages[seconds_left]+"<br>";
+			++seconds_left;
+		}
  	}, 1000);
 
 	//countdown before taking results from server
@@ -41,7 +50,7 @@ function runSearch(){
 		get(xmlhttp);
 		document.getElementById('submitButton').disabled = false;
 		document.getElementById('submitButton').innerHTML = "Submit";
-	},14000);
+	},7000);
 }
 
 function resetExtensionResults(){
@@ -55,6 +64,8 @@ function resetExtensionResults(){
   emotionGraph(0,0,0,0,0);
 	//hide and reset newspaper image
 	document.getElementById('newspaperImage').style.display="none";
+	//clear newspaper newspaperCaption
+	document.getElementById('newspaperCaption').innerHTML="";
 }
 
 function post(xmlhttp,search) {
@@ -173,8 +184,34 @@ function analyzeReturnData(json){
 	document.getElementById('emotionGraph').style.display="block";
   emotionGraph(sadness,joy,fear,disgust,anger);
 
+	//adding links to newspaper image
+	document.getElementById('link1').href = json[0]["retrieved_url"];
+	document.getElementById('link2').href = json[1]["retrieved_url"];
+	document.getElementById('link3').href = json[2]["retrieved_url"];
+	document.getElementById('link4').href = json[3]["retrieved_url"];
+	if(json[0]["warnings"]){
+		document.getElementById('link1').title = json[0]["retrieved_url"];
+	}else{
+		document.getElementById('link1').title = json[0]["metadata"]["title"];
+	}
+	if(json[1]["warnings"]){
+		document.getElementById('link2').title = json[1]["retrieved_url"];
+	}else{
+		document.getElementById('link2').title = json[1]["metadata"]["title"];
+	}
+	if(json[2]["warnings"]){
+		document.getElementById('link3').title = json[2]["retrieved_url"];
+	}else{
+		document.getElementById('link3').title = json[2]["metadata"]["title"];
+	}
+	if(json[3]["warnings"]){
+		document.getElementById('link4').title = json[3]["retrieved_url"];
+	}else{
+		document.getElementById('link4').title = json[3]["metadata"]["title"];
+	}
 	//show newspaper image
 	document.getElementById('newspaperImage').style.display="block";
+	document.getElementById('newspaperCaption').innerHTML="Click on paragraphs to see news articles";
 }
 
 //create emotion graph
