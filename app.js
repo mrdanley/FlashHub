@@ -14,14 +14,7 @@ function runSearch(){
   var search = document.getElementById('search').value;
 	var searchParts = search.split(' ');
 	if(searchParts.length>1){
-		var combinedSearch = "";
-		for(var i=0;i<searchParts.length;i++){
-			combinedSearch+=searchParts[i];
-			if(i<searchParts.length-1){
-				combinedSearch+='+';
-			}
-		}
-		search = combinedSearch;
+		search = combineMultipleWords(searchParts);
 	}
 
 	var xmlhttp = new XMLHttpRequest();
@@ -53,12 +46,23 @@ function runSearch(){
 	},7000);
 }
 
+function combineMultipleWords(searchParts){
+	var combinedSearch = "";
+	for(var i=0;i<searchParts.length;i++){
+		combinedSearch+=searchParts[i];
+		if(i<searchParts.length-1){
+			combinedSearch+='+';
+		}
+	}
+	return combinedSearch;
+}
+
 function resetExtensionResults(){
 	//clearing results message
 	document.getElementById('results').innerHTML = "";
 	//hide and reset sentiment graph
 	document.getElementById('sentimentGraph').style.display="none";
-	sentimentGraph(0,0,);
+	sentimentGraph(0,0);
 	//hide and reset emotion graph
 	document.getElementById('emotionGraph').style.display="none";
   emotionGraph(0,0,0,0,0);
